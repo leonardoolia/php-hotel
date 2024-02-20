@@ -1,3 +1,9 @@
+<?php 
+    include 'data/hotels.php';
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -18,33 +24,24 @@
     <table class="table mt-5">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Parcheggio</th>
+                <th scope="col">Voto</th>
+                <th scope="col">Distanza dal centro</th>
             </tr>
          </thead>
         <tbody>
-             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
+            <?php foreach ($hotels as $hotel) :?>
+                <tr>               
+                    <td><?= $hotel['name'] ?></td>
+                    <td><?= $hotel['description']?></td>
+                    <td><?= $hotel['parking']?></td>
+                    <td><?= $hotel['vote']?></td>
+                    <td><?= $hotel['distance_to_center']?></td>
+                </tr>
 
-            <tr>
-                <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-            </tr>
-            
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            <?php endforeach?>        
         </tbody>
     </table>
 </div>
