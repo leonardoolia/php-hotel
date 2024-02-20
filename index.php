@@ -1,5 +1,8 @@
 <?php 
+
     include 'data/hotels.php';
+
+    $parking_filter = isset($_GET['hasparking']) ? $_GET['hasparking'] : null;
 ?>
 
 
@@ -19,32 +22,69 @@
 </head>
 
 <body>
-<div class="container mt-5">
-    <h1>Hotel</h1>
-    <table class="table mt-5">
-        <thead>
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Descrizione</th>
-                <th scope="col">Parcheggio</th>
-                <th scope="col">Voto</th>
-                <th scope="col">Distanza dal centro</th>
-            </tr>
-         </thead>
-        <tbody>
-            <?php foreach ($hotels as $hotel) :?>
-                <tr>               
-                    <td><?= $hotel['name'] ?></td>
-                    <td><?= $hotel['description']?></td>
-                    <td><?= $hotel['parking']?></td>
-                    <td><?= $hotel['vote']?></td>
-                    <td><?= $hotel['distance_to_center']?></td>
-                </tr>
+    <div class="container mt-5">
 
-            <?php endforeach?>        
-        </tbody>
-    </table>
-</div>
+        <!-- FORM -->
+        <h2>Filtra per parcheggio</h2>
+        <form method="GET" class="mb-5">
+            <!-- Checkbox per parcheggio -->
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="hasparking" id="parking" value="Con parcheggio">
+                <label class="form-check-label" for="parking">
+                    Con parcheggio
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="hasparking" id="noparking" value="Senza parcheggio">
+                <label class="form-check-label" for="noparking">
+                    Senza parcheggio
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtra</button>
+
+        </form>
+
+        <!-- TABELLA -->
+        <h1>Hotel</h1>
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Parcheggio</th>
+                    <th scope="col">Voto</th>
+                    <th scope="col">Distanza dal centro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($hotels as $hotel) :
+                    if (!$parking_filter || ($parking_filter == 'Con parcheggio' && $hotel['parking']) || ($parking_filter == 'Senza parcheggio' && !$hotel['parking'])) :
+                    ?>
+
+                    
+                <tr>
+                    <td>
+                        <?= $hotel['name'] ?>
+                    </td>
+                    <td>
+                        <?= $hotel['description']?>
+                    </td>
+                    <td>
+                        <?= $hotel['parking'] ? ' &#9989;' : '&#10060;' ?>
+                    </td>
+                    <td>
+                        <?= $hotel['vote']?>
+                    </td>
+                    <td>
+                        <?= $hotel['distance_to_center']?>
+                    </td>
+                </tr>
+                <?php endif ?>
+                <?php endforeach?>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>
