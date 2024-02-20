@@ -3,6 +3,10 @@
     include 'data/hotels.php';
 
     $parking_filter = isset($_GET['hasparking']) ? $_GET['hasparking'] : null;
+
+    if (isset($_GET['clear'])) {
+        $parking_filter = null;
+    }
 ?>
 
 
@@ -42,6 +46,7 @@
                 </label>
             </div>
             <button type="submit" class="btn btn-primary">Filtra</button>
+            <button type="submit" name="clear" class="btn btn-secondary">Cancella filtri</button>
 
         </form>
 
